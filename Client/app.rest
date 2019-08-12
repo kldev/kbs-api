@@ -1,0 +1,44 @@
+@ServerUrl = http://localhost:50101
+
+### ping server
+# @name login
+POST {{ServerUrl}}/api/authorize
+Content-Type: application/json
+
+{
+    "Username": "admin",
+    "Password": "admin123"
+}
+
+
+@authToken = {{login.response.body.token}}
+
+### Values list
+GET {{ServerUrl}}/api/User
+Authorization: bearer {{authToken}}
+
+### Owner Test
+GET {{ServerUrl}}/api/Owner/Test
+Authorization: bearer {{authToken}}
+
+
+### Login Sales man
+# @name loginSales
+POST {{ServerUrl}}/api/authorize
+Content-Type: application/json
+
+{
+    "Username": "salesman",
+    "Password": "salesman123"
+}
+
+
+@salesToken = {{loginSales.response.body.token}}
+
+### Values list
+GET {{ServerUrl}}/api/User
+Authorization: bearer {{salesToken}}
+
+### Owner Test
+GET {{ServerUrl}}/api/Owner/Test
+Authorization: bearer {{salesToken}}

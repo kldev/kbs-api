@@ -1,0 +1,4 @@
+@ServerUrl = http://localhost:50101
+
+### check date
+GET {{ServerUrl}}/api/pg/now

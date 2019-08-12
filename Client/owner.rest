@@ -1,0 +1,60 @@
+@ServerUrl = http://localhost:50101
+
+### ping server
+# @name login
+POST {{ServerUrl}}/api/authorize
+Content-Type: application/json
+
+{
+    "Username": "admin",
+    "Password": "admin123"
+}
+
+
+@authToken = {{login.response.body.token}}
+
+### GET Salesman list
+
+GET {{ServerUrl}}/api/owner/salesman/list
+Authorization: bearer {{authToken}}
+
+### Add Salesman
+# @name addSuccess
+POST {{ServerUrl}}/api/owner/salesman/add
+Authorization: bearer {{authToken}}
+Content-Type: application/json
+
+{
+    username: "user{{$randomInt 1 6400}}",
+    password: "test",
+    email: "email{{$randomInt 1 64000}}@someservice.com",
+    address: "",
+    phone: "1{{$randomInt 100 999}}{{$randomInt 100 999}}{{$randomInt 100 999}}"
+}
+
+
+@newUUID = {{addSuccess.response.body.userId}}
+
+### Add Salesman
+
+POST {{ServerUrl}}/api/owner/salesman/add
+Authorization: bearer {{authToken}}
+Content-Type: application/json
+
+{
+    username: "admin",
+    password: "test",
+    email: "email{{$randomInt 1 64000}}@someservice.com",
+    address: "",
+    phone: "1{{$randomInt 100 999}}{{$randomInt 100 999}}{{$randomInt 100 999}}"
+}
+
+### Add Salesman
+
+POST {{ServerUrl}}/api/owner/salesman/delete
+Authorization: bearer {{authToken}}
+Content-Type: application/json
+
+{
+    userId: "{{newUUID}}"
+}

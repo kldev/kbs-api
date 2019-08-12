@@ -1,0 +1,1 @@
+dotnet ef migrations add -c BookStoreContext $1 

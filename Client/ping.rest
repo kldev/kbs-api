@@ -1,0 +1,4 @@
+@ServerUrl = http://localhost:50101
+
+### ping server
+GET {{ServerUrl}}/api/ping

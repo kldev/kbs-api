@@ -1,0 +1,17 @@
+@ServerUrl = http://localhost:50101
+### Login Sales man
+# @name loginSales
+POST {{ServerUrl}}/api/authorize
+Content-Type: application/json
+
+{
+    "Username": "salesman",
+    "Password": "salesman123"
+}
+
+
+@salesToken = {{loginSales.response.body.token}}
+
+### Values list
+GET {{ServerUrl}}/api/salesman/book/list
+Authorization: bearer {{salesToken}}
