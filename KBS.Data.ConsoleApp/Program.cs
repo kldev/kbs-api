@@ -24,19 +24,17 @@ namespace KBS.Data.ConsoleApp
                     ? optionCommand.Value()
                     : "n/a";
 
-                if (command.Trim().Equals("update"))
+                if (command.Trim().Equals("update") || command.Trim().Equals("both"))
                 {
                     var store = new BookStoreContext();
                     Console.WriteLine("Migrate database - begin");
 
                     await store.Database.MigrateAsync();
 
-                    Console.WriteLine("Migrate database - completed");
-
-                    return 0;
+                    Console.WriteLine("Migrate database - completed");                    
                 }
 
-                if (command.Trim().Equals("seed"))
+                if (command.Trim().Equals("seed") || command.Trim().Equals("both"))
                 {
                     Console.WriteLine("Seed database - begin");
                     
@@ -57,7 +55,7 @@ namespace KBS.Data.ConsoleApp
                     return 0;
                 }
 
-                Console.WriteLine("No command executed!!!");
+                
 
                 return 0;
             });
