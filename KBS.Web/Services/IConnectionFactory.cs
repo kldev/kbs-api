@@ -1,9 +1,7 @@
 using Npgsql;
 
-namespace KBS.Web.Services
-{
-    public interface IConnectionFactory
-    {
+namespace KBS.Web.Services {
+    public interface IConnectionFactory {
         NpgsqlConnection Connection();
     }
 }

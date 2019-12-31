@@ -1,7 +1,5 @@
-namespace KBS.Web.Infrastructure
-{
-    public struct Roles
-    {
+namespace KBS.Web.Infrastructure {
+    public struct Roles {
         public const string Owner = "Owner";
         public const string Salesman = "Salesman";
 

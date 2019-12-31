@@ -1,7 +1,7 @@
 echo "Run KBS.Web - Development"
 
 export ASPNETCORE_ENVIRONMENT="Development"
-export CorsConfig__Urls="http://localhost:3000,http://localhost:3001,http://localhost:3002"
+export CorsConfig__Urls="http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:8000"
 
 
 (cd ./KBS.Web && dotnet restore && dotnet publish -o obj/Debug/publish -c Release)

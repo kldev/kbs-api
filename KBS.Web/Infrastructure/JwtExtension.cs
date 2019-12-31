@@ -6,37 +6,31 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace KBS.Web.Infrastructure
-{
-    public static class JwtExtension
-    {
-        public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
-        {
+namespace KBS.Web.Infrastructure {
+    public static class JwtExtension {
+        public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration) {
 
-            services.Configure<JwtConfig>(configuration.GetSection("jwtConfig"));
+            services.Configure<JwtConfig> (configuration.GetSection ("jwtConfig"));
 
-            var token = configuration.GetSection("jwtConfig").Get<JwtConfig>();
+            var token = configuration.GetSection ("jwtConfig").Get<JwtConfig> ( );
 
-            Console.WriteLine($"Token secret: {token.Secret}");
+            Console.WriteLine ($"Token secret: {token.Secret}");
 
-            services.AddAuthentication(x =>
-            {
+            services.AddAuthentication (x => {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
+            }).AddJwtBearer (x => {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
+                x.TokenValidationParameters = new TokenValidationParameters {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey (Encoding.ASCII.GetBytes (token.Secret)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
             });
 
-            services.AddScoped<IAuthenticateService, TokenAuthenticateService>();
+            services.AddScoped<IAuthenticateService, TokenAuthenticateService> ( );
 
             return services;
         }

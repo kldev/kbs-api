@@ -9,38 +9,32 @@ using KBS.Web.Model;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace KBS.Web.Services
-{
-    public class TokenAuthenticateService : IAuthenticateService
-    {
+namespace KBS.Web.Services {
+    public class TokenAuthenticateService : IAuthenticateService {
         private readonly JwtConfig config;
         private readonly UserRepository userRepository;
         private readonly IPasswordService _passwordService;
-        
-        
 
-        public TokenAuthenticateService(IOptions<JwtConfig> options, IConnectionFactory factory, IPasswordService passwordService)
-        {
+
+
+        public TokenAuthenticateService(IOptions<JwtConfig> options, IConnectionFactory factory, IPasswordService passwordService) {
             config = options.Value;
-            userRepository = new UserRepository(factory);
+            userRepository = new UserRepository (factory);
             _passwordService = passwordService;
         }
 
-        public bool IsAuthenticated(AuthRequest auth, out AuthResponse response)
-        {
+        public bool IsAuthenticated(AuthRequest auth, out AuthResponse response) {
             response = null;
 
             if (auth == null
-                || string.IsNullOrEmpty(auth.Username)
-                || string.IsNullOrEmpty(auth.Password))
-            {
+                || string.IsNullOrEmpty (auth.Username)
+                || string.IsNullOrEmpty (auth.Password)) {
                 return false;
             }
 
-            var user = userRepository.GetByUsernameAsync(auth.Username).Result;
+            var user = userRepository.GetByUsernameAsync (auth.Username).Result;
 
-            if (user != null && _passwordService.Verity(auth.Password, user.Password))
-            {
+            if (user != null && _passwordService.Verity (auth.Password, user.Password)) {
 
                 var claim = new[]
                 {
@@ -50,21 +44,20 @@ namespace KBS.Web.Services
                     new Claim("Role", user.Role.ToString())
                 };
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Secret));
-                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (config.Secret));
+                var credentials = new SigningCredentials (key, SecurityAlgorithms.HmacSha256);
 
-                var jwtToken = new JwtSecurityToken(
+                var jwtToken = new JwtSecurityToken (
                     null,
                     null,
                     claim,
-                    expires: DateTime.Now.AddHours(8),
+                    expires: DateTime.Now.AddHours (8),
                     signingCredentials: credentials
                 );
-                var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-                response = new AuthResponse
-                {
+                var token = new JwtSecurityTokenHandler ( ).WriteToken (jwtToken);
+                response = new AuthResponse {
                     Token = token,
-                    Role = user.Role.ToString()
+                    Role = user.Role.ToString ( )
 
                 };
 

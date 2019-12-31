@@ -1,0 +1,33 @@
+version: '3'
+services:
+  minio:
+    image: minio/minio:8497-fc827fb
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+    volumes:
+      - minio.data:/mnt/data
+    command: ['server', '/mnt/data']
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: stupidPassword
+    
+  redis:
+    image: bitnami/redis:5.0.7
+    environment:
+      REDIS_PASSWORD: strongPassword
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  postgres:
+    image: postgres:11
+    volumes:
+    - pg.data:/var/lib/postgresql
+    ports:
+    - "${PG_PORT:-5432}:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: kbs
+volumes:
+  pg.data:
+  minio.data:

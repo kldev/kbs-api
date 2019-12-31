@@ -6,25 +6,21 @@ using KBS.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KBS.Web.Controllers.Salesman
-{
-    [Authorize(Roles = Roles.Salesman)]
-    [Route("api/salesman/book/[action]")]
-    public class SalesmanBookController : KbsController
-    {
+namespace KBS.Web.Controllers.Salesman {
+    [Authorize (Roles = Roles.Salesman)]
+    [Route ("api/salesman/book/[action]")]
+    public class SalesmanBookController : KbsController {
         private readonly SalesmanBookRepository _salesmanBookRepository;
 
-        public SalesmanBookController(IConnectionFactory factory)
-        {
-            _salesmanBookRepository = new SalesmanBookRepository(factory);
+        public SalesmanBookController(IConnectionFactory factory) {
+            _salesmanBookRepository = new SalesmanBookRepository (factory);
         }
 
-        public async Task<IActionResult> List()
-        {
-            
-            var list = await _salesmanBookRepository.List(UserId);
+        public async Task<IActionResult> List() {
 
-            return Ok(list);
+            var list = await _salesmanBookRepository.List (UserId);
+
+            return Ok (list);
         }
     }
 }

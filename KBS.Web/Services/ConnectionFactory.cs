@@ -1,19 +1,15 @@
 using Npgsql;
 
-namespace KBS.Web.Services
-{
-    public class ConnectionFactory : IConnectionFactory
-    {
+namespace KBS.Web.Services {
+    public class ConnectionFactory : IConnectionFactory {
         private readonly string _connectionString;
 
-        public ConnectionFactory(string connectionString)
-        {
+        public ConnectionFactory(string connectionString) {
             _connectionString = connectionString;
         }
 
-        public NpgsqlConnection Connection()
-        {
-            return new NpgsqlConnection(_connectionString);
+        public NpgsqlConnection Connection() {
+            return new NpgsqlConnection (_connectionString);
         }
     }
 }

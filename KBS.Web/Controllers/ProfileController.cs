@@ -5,25 +5,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static KBS.Web.Infrastructure.Roles;
 
-namespace KBS.Web.Controllers
-{
-    
-    
-    [Authorize(Roles = Roles.OwnerAndSalesman)]
-    [Route("api/profile/[action]")]
-    public class ProfileController : KbsController
-    {
+namespace KBS.Web.Controllers {
+
+
+    [Authorize (Roles = Roles.OwnerAndSalesman)]
+    [Route ("api/profile/[action]")]
+    public class ProfileController : KbsController {
 
         [HttpGet]
-        public IActionResult Get()
-        {
-            throw new NotImplementedException();
+        public IActionResult Get() {
+            throw new NotImplementedException ( );
         }
 
         [HttpPost]
-        public IActionResult Update(UpdateProfileRequest model)
-        {
-            throw new NotImplementedException();
+        public IActionResult Update(UpdateProfileRequest model) {
+            throw new NotImplementedException ( );
         }
     }
 }

@@ -1,7 +1,5 @@
-namespace KBS.Web.Model
-{
-    public class OwnClaims
-    {
+namespace KBS.Web.Model {
+    public class OwnClaims {
         public const string USER_ID = "UserId";
         public const string ROLE = "Role";
 

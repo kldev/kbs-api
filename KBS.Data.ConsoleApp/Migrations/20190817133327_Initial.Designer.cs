@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KBS.Data.ConsoleApp.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20190803172142_Initial")]
+    [Migration("20190817133327_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
